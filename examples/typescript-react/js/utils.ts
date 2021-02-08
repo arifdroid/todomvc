@@ -26,6 +26,13 @@ class Utils {
     return list_1 + list_2;
   }
 
+  public static sameTitleCheck(newTitle: string,listTodo: any) {
+
+
+
+    // return list_1 + list_2;
+  }
+
   public static store(namespace : string, data? : any) {
     if (data) {
       return localStorage.setItem(namespace, JSON.stringify(data));

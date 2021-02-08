@@ -22,6 +22,8 @@ var Utils = (function () {
     Utils.addTotal = function (list_1, list_2) {
         return list_1 + list_2;
     };
+    Utils.sameTitleCheck = function (newTitle, listTodo) {
+    };
     Utils.store = function (namespace, data) {
         if (data) {
             return localStorage.setItem(namespace, JSON.stringify(data));

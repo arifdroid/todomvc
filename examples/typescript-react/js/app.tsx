@@ -101,7 +101,7 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
 
     var todoItems = shownTodos.map((todo) => {
 
-      console.log('todo ->', todo)
+      // console.log('todo ->', todo)
       return (
         <TodoItem
           key={todo.id}

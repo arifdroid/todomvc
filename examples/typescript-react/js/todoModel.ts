@@ -15,9 +15,9 @@ import moment = require('moment');
 // separate out parts of your application.
 class TodoModel implements ITodoModel {
 
-  public key : string;
-  public todos : Array<ITodo>;
-  public onChanges : Array<any>;  
+  public key: string;
+  public todos: Array<ITodo>;
+  public onChanges: Array<any>;
 
   constructor(key) {
     this.key = key;
@@ -29,45 +29,60 @@ class TodoModel implements ITodoModel {
     this.onChanges.push(onChange);
   }
 
-  public inform() {    
+  public inform() {
     Utils.store(this.key, this.todos);
     this.onChanges.forEach(function (cb) { cb(); });
   }
 
-  public addTodo(title : string) {
-    this.todos = this.todos.concat({
-      id: Utils.uuid(),
-      title: title,
-      completed: false,      
-      dateCreated: moment(new Date()).format("DD/MM/YYYY")
-    });
+  public checkSameName(title: string) {
+    let found = false;
+    for (let j = 0; j < this.todos.length; j++) {
+      if (this.todos[j].title == title) {
+        found = true;
+      }
+    }
 
-    this.inform();
+    return found;
   }
 
-  public toggleAll(checked : Boolean) {
+  public addTodo(title: string) {
+
+    if (!this.checkSameName(title)) {
+
+      this.todos = this.todos.concat({
+        id: Utils.uuid(),
+        title: title,
+        completed: false,
+        dateCreated: moment(new Date()).format("DD/MM/YYYY")
+      });
+
+      this.inform();
+    }
+  }
+
+  public toggleAll(checked: Boolean) {
     // Note: It's usually better to use immutable data structures since they're
     // easier to reason about and React works very well with them. That's why
     // we use map(), filter() and reduce() everywhere instead of mutating the
     // array or todo items themselves.
-    this.todos = this.todos.map<ITodo>((todo : ITodo) => {
-      return Utils.extend({}, todo, {completed: checked});
+    this.todos = this.todos.map<ITodo>((todo: ITodo) => {
+      return Utils.extend({}, todo, { completed: checked });
     });
 
     this.inform();
   }
 
-  public toggle(todoToToggle : ITodo) {
-    this.todos = this.todos.map<ITodo>((todo : ITodo) => {
+  public toggle(todoToToggle: ITodo) {
+    this.todos = this.todos.map<ITodo>((todo: ITodo) => {
       return todo !== todoToToggle ?
         todo :
-        Utils.extend({}, todo, {completed: !todo.completed});
+        Utils.extend({}, todo, { completed: !todo.completed });
     });
 
     this.inform();
   }
 
-  public destroy(todo : ITodo) {
+  public destroy(todo: ITodo) {
     this.todos = this.todos.filter(function (candidate) {
       return candidate !== todo;
     });
@@ -75,9 +90,9 @@ class TodoModel implements ITodoModel {
     this.inform();
   }
 
-  public save(todoToSave : ITodo, text : string) {
+  public save(todoToSave: ITodo, text: string) {
     this.todos = this.todos.map(function (todo) {
-      return todo !== todoToSave ? todo : Utils.extend({}, todo, {title: text});
+      return todo !== todoToSave ? todo : Utils.extend({}, todo, { title: text });
     });
 
     this.inform();

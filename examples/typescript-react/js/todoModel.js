@@ -15,14 +15,25 @@ var TodoModel = (function () {
         utils_1.Utils.store(this.key, this.todos);
         this.onChanges.forEach(function (cb) { cb(); });
     };
+    TodoModel.prototype.checkSameName = function (title) {
+        var found = false;
+        for (var j = 0; j < this.todos.length; j++) {
+            if (this.todos[j].title == title) {
+                found = true;
+            }
+        }
+        return found;
+    };
     TodoModel.prototype.addTodo = function (title) {
-        this.todos = this.todos.concat({
-            id: utils_1.Utils.uuid(),
-            title: title,
-            completed: false,
-            dateCreated: moment(new Date()).format("DD/MM/YYYY")
-        });
-        this.inform();
+        if (!this.checkSameName(title)) {
+            this.todos = this.todos.concat({
+                id: utils_1.Utils.uuid(),
+                title: title,
+                completed: false,
+                dateCreated: moment(new Date()).format("DD/MM/YYYY")
+            });
+            this.inform();
+        }
     };
     TodoModel.prototype.toggleAll = function (checked) {
         this.todos = this.todos.map(function (todo) {

@@ -87,7 +87,6 @@ var TodoApp = (function (_super) {
             }
         });
         var todoItems = shownTodos.map(function (todo) {
-            console.log('todo ->', todo);
             return (React.createElement(todoItem_1.TodoItem, { key: todo.id, todo: todo, onToggle: _this.toggle.bind(_this, todo), onDestroy: _this.destroy.bind(_this, todo), onEdit: _this.edit.bind(_this, todo), editing: _this.state.editing === todo.id, onSave: _this.save.bind(_this, todo), onCancel: function (e) { return _this.cancel(); } }));
         });
         var activeTodoCount = todos.reduce(function (accum, todo) {
@@ -286,14 +285,25 @@ var TodoModel = (function () {
         utils_1.Utils.store(this.key, this.todos);
         this.onChanges.forEach(function (cb) { cb(); });
     };
+    TodoModel.prototype.checkSameName = function (title) {
+        var found = false;
+        for (var j = 0; j < this.todos.length; j++) {
+            if (this.todos[j].title == title) {
+                found = true;
+            }
+        }
+        return found;
+    };
     TodoModel.prototype.addTodo = function (title) {
-        this.todos = this.todos.concat({
-            id: utils_1.Utils.uuid(),
-            title: title,
-            completed: false,
-            dateCreated: moment(new Date()).format("DD/MM/YYYY")
-        });
-        this.inform();
+        if (!this.checkSameName(title)) {
+            this.todos = this.todos.concat({
+                id: utils_1.Utils.uuid(),
+                title: title,
+                completed: false,
+                dateCreated: moment(new Date()).format("DD/MM/YYYY")
+            });
+            this.inform();
+        }
     };
     TodoModel.prototype.toggleAll = function (checked) {
         this.todos = this.todos.map(function (todo) {
@@ -355,6 +365,8 @@ var Utils = (function () {
     };
     Utils.addTotal = function (list_1, list_2) {
         return list_1 + list_2;
+    };
+    Utils.sameTitleCheck = function (newTitle, listTodo) {
     };
     Utils.store = function (namespace, data) {
         if (data) {
