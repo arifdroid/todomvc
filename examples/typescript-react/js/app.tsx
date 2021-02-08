@@ -87,6 +87,7 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
     var main;
     const todos = this.props.model.todos;
 
+  
     var shownTodos = todos.filter((todo) => {
       switch (this.state.nowShowing) {
       case ACTIVE_TODOS:

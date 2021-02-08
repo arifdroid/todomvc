@@ -162,12 +162,13 @@ var TodoFooter = (function (_super) {
             clearButton = (React.createElement("button", { className: "clear-completed", onClick: this.props.onClearCompleted }, "Clear completed"));
         }
         var nowShowing = this.props.nowShowing;
+        console.log('this count 22', this.props.count);
         return (React.createElement("footer", { className: "footer" },
             React.createElement("span", { className: "todo-count" },
                 React.createElement("strong", null, this.props.count),
                 " ",
                 activeTodoWord,
-                " left"),
+                " left / check"),
             React.createElement("ul", { className: "filters" },
                 React.createElement("li", null,
                     React.createElement("a", { href: "#/", className: classNames({ selected: nowShowing === constants_1.ALL_TODOS }) }, "All")),

@@ -28,10 +28,14 @@ class TodoFooter extends React.Component<ITodoFooterProps, {}> {
     }
 
     const nowShowing = this.props.nowShowing;
+
+    // console.log('this count 22', this.props.count)
+
     return (
+      
       <footer className="footer">
         <span className="todo-count">
-          <strong>{this.props.count}</strong> {activeTodoWord} left
+          <strong>{this.props.count}</strong> {activeTodoWord} left / check
         </span>
         <ul className="filters">
           <li>
