@@ -22,7 +22,8 @@ var TodoApp = (function (_super) {
         var _this = _super.call(this, props) || this;
         _this.state = {
             nowShowing: constants_1.ALL_TODOS,
-            editing: null
+            editing: null,
+            ascend: false
         };
         return _this;
     }
@@ -45,6 +46,13 @@ var TodoApp = (function (_super) {
             this.props.model.addTodo(val);
             ReactDOM.findDOMNode(this.refs["newField"]).value = '';
         }
+    };
+    TodoApp.prototype.clickSort = function (event) {
+        var target = event.target;
+        this.setState({
+            ascend: !this.state.ascend
+        });
+        this.props.model.sortAscend(this.state.ascend);
     };
     TodoApp.prototype.toggleAll = function (event) {
         var target = event.target;
@@ -105,6 +113,10 @@ var TodoApp = (function (_super) {
         return (React.createElement("div", null,
             React.createElement("header", { className: "header" },
                 React.createElement("h1", null, "todos"),
+                React.createElement("button", { style: { width: '100%' }, onClick: function (e) { return _this.clickSort(e); } },
+                    React.createElement("p", null,
+                        "Sort By ",
+                        this.state.ascend ? 'Ascending' : 'Descending')),
                 React.createElement("input", { ref: "newField", className: "new-todo", placeholder: "What needs to be done?", onKeyDown: function (e) { return _this.handleNewTodoKeyDown(e); }, autoFocus: true })),
             main,
             footer));

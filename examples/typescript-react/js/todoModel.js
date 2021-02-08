@@ -15,17 +15,8 @@ var TodoModel = (function () {
         utils_1.Utils.store(this.key, this.todos);
         this.onChanges.forEach(function (cb) { cb(); });
     };
-    TodoModel.prototype.checkSameName = function (title) {
-        var found = false;
-        for (var j = 0; j < this.todos.length; j++) {
-            if (this.todos[j].title == title) {
-                found = true;
-            }
-        }
-        return found;
-    };
     TodoModel.prototype.addTodo = function (title) {
-        if (!this.checkSameName(title)) {
+        if (!utils_1.Utils.sameTitleCheck(title, this.todos)) {
             this.todos = this.todos.concat({
                 id: utils_1.Utils.uuid(),
                 title: title,
@@ -47,6 +38,17 @@ var TodoModel = (function () {
                 todo :
                 utils_1.Utils.extend({}, todo, { completed: !todo.completed });
         });
+        this.inform();
+    };
+    TodoModel.prototype.sortAscend = function (ascend) {
+        if (ascend) {
+            var descendData = this.todos.slice();
+            this.todos = utils_1.Utils.sortDesc(descendData);
+        }
+        else {
+            var ascendData = this.todos.slice();
+            this.todos = utils_1.Utils.sortAscend(ascendData);
+        }
         this.inform();
     };
     TodoModel.prototype.destroy = function (todo) {

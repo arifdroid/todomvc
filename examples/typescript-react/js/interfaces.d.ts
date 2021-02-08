@@ -36,6 +36,7 @@ interface ITodoModel {
   inform();
   addTodo(title : string);
   toggleAll(checked);
+  sortAscend(ascend:boolean);
   toggle(todoToToggle);
   destroy(todo);
   save(todoToSave, text);
@@ -48,5 +49,6 @@ interface IAppProps {
 
 interface IAppState {
   editing? : string;
-  nowShowing? : string
+  nowShowing? : string;
+  ascend:boolean
 }

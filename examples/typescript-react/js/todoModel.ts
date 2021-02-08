@@ -7,6 +7,7 @@
 
 import { Utils } from "./utils";
 import moment = require('moment');
+import _ = require('lodash');
 
 // Generic "model" object. You can use whatever
 // framework you want. For this application it
@@ -34,20 +35,21 @@ class TodoModel implements ITodoModel {
     this.onChanges.forEach(function (cb) { cb(); });
   }
 
-  public checkSameName(title: string) {
-    let found = false;
-    for (let j = 0; j < this.todos.length; j++) {
-      if (this.todos[j].title == title) {
-        found = true;
-      }
-    }
+  // public checkSameName(title: string) {
+  //   let found = false;
+  //   for (let j = 0; j < this.todos.length; j++) {
+  //     if (this.todos[j].title == title) {
+  //       found = true;
+  //     }
+  //   }
 
-    return found;
-  }
+  //   return found;
+  // }
 
   public addTodo(title: string) {
 
-    if (!this.checkSameName(title)) {
+    if(!Utils.sameTitleCheck(title,this.todos)){
+    // if (!this.checkSameName(title)) {
 
       this.todos = this.todos.concat({
         id: Utils.uuid(),
@@ -78,6 +80,24 @@ class TodoModel implements ITodoModel {
         todo :
         Utils.extend({}, todo, { completed: !todo.completed });
     });
+
+    this.inform();
+  }
+
+  public sortAscend(ascend: boolean) {
+ 
+    if (ascend) {
+      let descendData = [...this.todos];
+
+      this.todos = Utils.sortDesc(descendData);
+
+    } else {
+
+      let ascendData = [...this.todos];
+
+      this.todos = Utils.sortAscend(ascendData);
+
+    }
 
     this.inform();
   }

@@ -1,3 +1,6 @@
+import _ = require('lodash');
+import moment = require('moment');
+
 
 class Utils {
 
@@ -28,9 +31,44 @@ class Utils {
 
   public static sameTitleCheck(newTitle: string,listTodo: any) {
 
+    let found = false;
+    for (let j = 0; j < listTodo.length; j++) {
+      if (listTodo[j].title == newTitle) {
+        found = true;
+      }
+    }
 
+    return found;
 
     // return list_1 + list_2;
+  }
+  
+  public static sortAscend(listTodo: any) {
+
+
+    const sortedArray = _.orderBy(listTodo, (o: any) => {
+
+      if (o.dateCreated) {
+        return moment(o.dateCreated).format("DD/MM/YYYY");
+      } else return null;
+
+    }, ['asc']);
+
+    return sortedArray;
+
+  }
+
+  public static sortDesc(listTodo: any) {
+
+    const sortedArray = _.orderBy(listTodo, (o: any) => {
+
+      if (o.dateCreated) {
+        return moment(o.dateCreated).format("DD/MM/YYYY");
+      } else return null;
+
+    }, ['desc']);
+
+    return sortedArray;  
   }
 
   public static store(namespace : string, data? : any) {

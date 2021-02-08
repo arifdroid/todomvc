@@ -1,5 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var _ = require("lodash");
+var moment = require("moment");
 var Utils = (function () {
     function Utils() {
     }
@@ -23,6 +25,33 @@ var Utils = (function () {
         return list_1 + list_2;
     };
     Utils.sameTitleCheck = function (newTitle, listTodo) {
+        var found = false;
+        for (var j = 0; j < listTodo.length; j++) {
+            if (listTodo[j].title == newTitle) {
+                found = true;
+            }
+        }
+        return found;
+    };
+    Utils.sortAscend = function (listTodo) {
+        var sortedArray = _.orderBy(listTodo, function (o) {
+            if (o.dateCreated) {
+                return moment(o.dateCreated).format("DD/MM/YYYY");
+            }
+            else
+                return null;
+        }, ['asc']);
+        return sortedArray;
+    };
+    Utils.sortDesc = function (listTodo) {
+        var sortedArray = _.orderBy(listTodo, function (o) {
+            if (o.dateCreated) {
+                return moment(o.dateCreated).format("DD/MM/YYYY");
+            }
+            else
+                return null;
+        }, ['desc']);
+        return sortedArray;
     };
     Utils.store = function (namespace, data) {
         if (data) {
