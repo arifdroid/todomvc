@@ -27,8 +27,6 @@ var TodoFooter = (function (_super) {
             clearButton = (React.createElement("button", { className: "clear-completed", onClick: this.props.onClearCompleted }, "Clear completed"));
         }
         var nowShowing = this.props.nowShowing;
-        console.log('this count ->', this.props.count);
-        console.log('this completed ->', this.props.completedCount);
         return (React.createElement("footer", { className: "footer" },
             React.createElement("span", { className: "todo-count" },
                 React.createElement("strong", null,

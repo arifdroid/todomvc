@@ -66,9 +66,10 @@ var TodoItem = (function (_super) {
                 completed: this.props.todo.completed,
                 editing: this.props.editing
             }) },
-            React.createElement("div", { className: "view" },
+            React.createElement("div", { style: { display: 'flex', flexDirection: 'row', flex: 1 } },
                 React.createElement("input", { className: "toggle", type: "checkbox", checked: this.props.todo.completed, onChange: this.props.onToggle }),
                 React.createElement("label", { onDoubleClick: function (e) { return _this.handleEdit(); } }, this.props.todo.title),
+                React.createElement("label", { style: { fontSize: 12 } }, this.props.todo.dateCreated),
                 React.createElement("button", { className: "destroy", onClick: this.props.onDestroy })),
             React.createElement("input", { ref: "editField", className: "edit", value: this.state.editText, onBlur: function (e) { return _this.handleSubmit(e); }, onChange: function (e) { return _this.handleChange(e); }, onKeyDown: function (e) { return _this.handleKeyDown(e); } })));
     };

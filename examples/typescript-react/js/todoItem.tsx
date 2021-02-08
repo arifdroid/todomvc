@@ -84,16 +84,21 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
         completed: this.props.todo.completed,
         editing: this.props.editing
       })}>
-        <div className="view">
+        <div style={{display:'flex', flexDirection:'row', flex:1}}>
           <input
             className="toggle"
             type="checkbox"
             checked={this.props.todo.completed}
             onChange={this.props.onToggle}
           />
+          
           <label onDoubleClick={ e => this.handleEdit() }>
             {this.props.todo.title}
           </label>
+          <label style={{fontSize:12}}>
+            {this.props.todo.dateCreated}
+          </label>
+          
           <button className="destroy" onClick={this.props.onDestroy} />
         </div>
         <input

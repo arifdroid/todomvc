@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("./utils");
+var moment = require("moment");
 var TodoModel = (function () {
     function TodoModel(key) {
         this.key = key;
@@ -18,7 +19,8 @@ var TodoModel = (function () {
         this.todos = this.todos.concat({
             id: utils_1.Utils.uuid(),
             title: title,
-            completed: false
+            completed: false,
+            dateCreated: moment(new Date()).format("DD/MM/YYYY")
         });
         this.inform();
     };

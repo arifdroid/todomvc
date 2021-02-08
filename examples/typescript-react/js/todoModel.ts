@@ -6,6 +6,7 @@
 /// <reference path="./interfaces.d.ts"/>
 
 import { Utils } from "./utils";
+import moment = require('moment');
 
 // Generic "model" object. You can use whatever
 // framework you want. For this application it
@@ -16,7 +17,7 @@ class TodoModel implements ITodoModel {
 
   public key : string;
   public todos : Array<ITodo>;
-  public onChanges : Array<any>;
+  public onChanges : Array<any>;  
 
   constructor(key) {
     this.key = key;
@@ -28,7 +29,7 @@ class TodoModel implements ITodoModel {
     this.onChanges.push(onChange);
   }
 
-  public inform() {
+  public inform() {    
     Utils.store(this.key, this.todos);
     this.onChanges.forEach(function (cb) { cb(); });
   }
@@ -37,7 +38,8 @@ class TodoModel implements ITodoModel {
     this.todos = this.todos.concat({
       id: Utils.uuid(),
       title: title,
-      completed: false
+      completed: false,      
+      dateCreated: moment(new Date()).format("DD/MM/YYYY")
     });
 
     this.inform();

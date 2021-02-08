@@ -30,9 +30,6 @@ class TodoFooter extends React.Component<ITodoFooterProps, {}> {
 
     const nowShowing = this.props.nowShowing;
 
-    console.log('this count ->', this.props.count)
-    console.log('this completed ->', this.props.completedCount)
-
     return (
       
       <footer className="footer">
