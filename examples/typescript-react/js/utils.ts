@@ -22,6 +22,10 @@ class Utils {
     return count === 1 ? word : word + 's';
   }
 
+  public static addTotal(list_1: number,list_2: number) {
+    return list_1 + list_2;
+  }
+
   public static store(namespace : string, data? : any) {
     if (data) {
       return localStorage.setItem(namespace, JSON.stringify(data));

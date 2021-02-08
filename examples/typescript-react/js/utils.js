@@ -19,6 +19,9 @@ var Utils = (function () {
     Utils.pluralize = function (count, word) {
         return count === 1 ? word : word + 's';
     };
+    Utils.addTotal = function (list_1, list_2) {
+        return list_1 + list_2;
+    };
     Utils.store = function (namespace, data) {
         if (data) {
             return localStorage.setItem(namespace, JSON.stringify(data));

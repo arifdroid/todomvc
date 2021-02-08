@@ -15,6 +15,7 @@ class TodoFooter extends React.Component<ITodoFooterProps, {}> {
 
   public render() {
     var activeTodoWord = Utils.pluralize(this.props.count, 'item');
+    var totalItem = Utils.addTotal(this.props.count, this.props.completedCount);
     var clearButton = null;
 
     if (this.props.completedCount > 0) {
@@ -29,13 +30,14 @@ class TodoFooter extends React.Component<ITodoFooterProps, {}> {
 
     const nowShowing = this.props.nowShowing;
 
-    // console.log('this count 22', this.props.count)
+    console.log('this count ->', this.props.count)
+    console.log('this completed ->', this.props.completedCount)
 
     return (
       
       <footer className="footer">
         <span className="todo-count">
-          <strong>{this.props.count}</strong> {activeTodoWord} left / check
+          <strong>{this.props.count}/{totalItem}</strong> {activeTodoWord} left 
         </span>
         <ul className="filters">
           <li>

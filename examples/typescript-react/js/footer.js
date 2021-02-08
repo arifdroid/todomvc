@@ -21,18 +21,23 @@ var TodoFooter = (function (_super) {
     }
     TodoFooter.prototype.render = function () {
         var activeTodoWord = utils_1.Utils.pluralize(this.props.count, 'item');
+        var totalItem = utils_1.Utils.addTotal(this.props.count, this.props.completedCount);
         var clearButton = null;
         if (this.props.completedCount > 0) {
             clearButton = (React.createElement("button", { className: "clear-completed", onClick: this.props.onClearCompleted }, "Clear completed"));
         }
         var nowShowing = this.props.nowShowing;
-        console.log('this count 22', this.props.count);
+        console.log('this count ->', this.props.count);
+        console.log('this completed ->', this.props.completedCount);
         return (React.createElement("footer", { className: "footer" },
             React.createElement("span", { className: "todo-count" },
-                React.createElement("strong", null, this.props.count),
+                React.createElement("strong", null,
+                    this.props.count,
+                    "/",
+                    totalItem),
                 " ",
                 activeTodoWord,
-                " left / check"),
+                " left"),
             React.createElement("ul", { className: "filters" },
                 React.createElement("li", null,
                     React.createElement("a", { href: "#/", className: classNames({ selected: nowShowing === constants_1.ALL_TODOS }) }, "All")),
